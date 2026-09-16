@@ -231,7 +231,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #73
 <p class="subtitle is-hero-subtitle"><span class="highlight">Recurrent computation across prompt and response.</span><br>Architecture, execution and depth-eight algorithmic experiments.</p>
 <div class="authors-list"><a href="https://yifzhang.com">Yifan Zhang</a> &nbsp;·&nbsp; Jichen Feng &nbsp;·&nbsp; Shihan Qin</div>
 <div class="affiliations">Technical report &nbsp;·&nbsp; September 12, 2026<br>Updated September 15, 2026</div>
-<div class="hero-links"><a class="button primary" href="Recurrent_Looped_Transformer.pdf">Paper ↗</a><a class="button" href="https://github.com/yifanzhang-pro/recurrent-looped-tranformer">GitHub ↗</a><a class="button" href="#experiments">Experimental results ↓</a><a class="button" href="#citation">Cite this work</a></div>
+<div class="hero-links"><a class="button primary" href="Recurrent_Looped_Transformer.pdf">English PDF ↗</a><a class="button" href="paper/zh/Recurrent_Looped_Transformer_ZH.pdf" lang="zh-CN" hreflang="zh-CN">中文 PDF ↗</a><a class="button" href="https://github.com/yifanzhang-pro/recurrent-looped-tranformer">GitHub ↗</a><a class="button" href="#experiments">Experimental results ↓</a><a class="button" href="#citation">Cite this work</a></div>
 <div style="margin-top:1.4rem"><span class="pill">Hidden-state feedback</span><span class="pill">Shared global KV</span><span class="pill">Exact policy replay</span></div>
 </div></div></header>
 <main id="main">
@@ -307,7 +307,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #73
 <p><strong>Forward consistency and complete gradients are separate requirements.</strong> Full BPTT includes paths through recurrent outputs, decoder KV, and encoder memory. Detaching any of these changes the gradient. Parameter updates invalidate old caches for exact current-policy replay.</p>
 <p>Behavior log-probabilities must describe the actual sampling distribution. Exact importance sampling additionally requires support coverage. Shared transitions remove structural prompt-boundary mismatch; numerical kernel parity and off-policy estimation remain separate concerns.</p>
 <p>For the execution-level distinction, see the <a href="https://github.com/yifanzhang-pro/Pretraining-RL-Science/blob/master/Prefill_Decode_Kernel_Mismatch.pdf">prefill–decode kernel mismatch note</a>.</p>
-<p><a class="button is-primary" href="Recurrent_Looped_Transformer.pdf">Read the full report ↗</a></p>
+<p><a class="button is-primary" href="Recurrent_Looped_Transformer.pdf">Read the full report ↗</a> <a class="button" href="paper/zh/Recurrent_Looped_Transformer_ZH.pdf" lang="zh-CN" hreflang="zh-CN">阅读中文论文 ↗</a></p>
 </div></div></section>
 <section id="citation" class="section content-section"><div class="container"><h2 class="section-title">Citation</h2><div class="content"><p>If you find this work useful, please cite:</p>
 <pre id="cite-bibtex"><code>@techreport{zhang2026recurrentlooped,

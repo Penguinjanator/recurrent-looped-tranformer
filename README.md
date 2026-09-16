@@ -1,6 +1,7 @@
 # Recurrent Looped Transformer
 
 [![Paper](https://img.shields.io/badge/Paper-b31b1b.svg)](./Recurrent_Looped_Transformer.pdf)
+[![中文论文](https://img.shields.io/badge/Paper-中文-b31b1b.svg)](./paper/zh/Recurrent_Looped_Transformer_ZH.pdf)
 [![Website](https://img.shields.io/badge/Project-Website-blue)](https://yifanzhang-pro.github.io/recurrent-looped-tranformer/)
 
 ### Recurrent computation across prompt and response
@@ -13,7 +14,7 @@ The same update runs over prompt and response tokens.
 
 **Report:** September 12, 2026 · **Updated:** September 15, 2026
 
-[[Paper](./Recurrent_Looped_Transformer.pdf)] [[Project website](https://yifanzhang-pro.github.io/recurrent-looped-tranformer/)] [[Experiments](#depth-eight-experiments)]
+[[English PDF](./Recurrent_Looped_Transformer.pdf)] [[中文 PDF](./paper/zh/Recurrent_Looped_Transformer_ZH.pdf)] [[中文论文目录](./paper/zh/)] [[Project website](https://yifanzhang-pro.github.io/recurrent-looped-tranformer/)] [[Experiments](#depth-eight-experiments)]
 
 ![RLT recurrence across the last prompt tokens and the first response token.](figure1.png)
 
