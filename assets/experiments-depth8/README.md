@@ -1,6 +1,6 @@
-# Depth-eight experiment snapshot
+# Depth-eight experiment figures
 
-These files accompany the September 15, 2026 revision of [Recurrent Looped Transformer](../../Recurrent_Looped_Transformer.pdf).
+These figures accompany the September 15, 2026 revision of [Recurrent Looped Transformer](../../Recurrent_Looped_Transformer.pdf).
 Source manuscript revision: `b1f135c`.
 The frozen snapshot was collected on September 15, 2026, 16:11:47–16:12:10 UTC.
 Of 48 runs, 21 had reached 2,000 steps and 27 were unfinished.
@@ -17,10 +17,6 @@ Results use held-out validation sets at training lengths.
 | Parity at step 500 | [PNG](parity-errorbars.png) | [PDF](parity-errorbars.pdf) |
 | Individual parity seeds | [PNG](parity-individual-seeds.png) | [PDF](parity-individual-seeds.pdf) |
 | Training loss | [PNG](training-loss.png) | [PDF](training-loss.pdf) |
-
-- [matched-summary.csv](matched-summary.csv): all six models at the latest shared checkpoint per task; percentages in the page tables are obtained by multiplying accuracy values by 100.
-- [curves.csv](curves.csv): checkpoint-aligned aggregates; missing checkpoints remain missing.
-- [validation.csv](validation.csv): 723 individual run/seed/checkpoint observations, including the completed mod-5 comparisons.
 
 Addition requires an exact greedy answer and EOS.
 Formal tasks report final-answer or final-state accuracy; S5 prefix accuracy is a separate metric.

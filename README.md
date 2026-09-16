@@ -80,8 +80,6 @@ Addition requires a correct greedy answer and EOS; the other tasks use final-ans
 | S5, swaps | 1000 | 100.00 | 99.61 | 95.70 | 89.84 | 86.33 | 89.84 |
 | S5, standard | 1000 | 1.17 | 3.52 | 1.95 | 1.56 | 1.17 | 1.17 |
 
-[Download the comparison data (CSV)](assets/experiments-depth8/matched-summary.csv)
-
 ![Validation accuracy curves across addition, parity, flat and bracketed mod-5, and swaps and standard S5.](assets/experiments-depth8/validation-curves.png)
 
 Curves stop at available checkpoints.
@@ -129,7 +127,7 @@ The preferred encoder–decoder split varies by task.
 The comparisons change feedback, attention structure, parameter count and compute together; matched RLT w/o feedback runs will isolate hidden-state feedback.
 Hardware throughput and RL performance remain to be measured.
 
-[Snapshot and figure downloads](assets/experiments-depth8/README.md) · [Aggregated curves (CSV)](assets/experiments-depth8/curves.csv) · [Validation records (CSV)](assets/experiments-depth8/validation.csv)
+[Experiment figures](assets/experiments-depth8/README.md)
 
 ## One execution across training and inference
 
@@ -178,7 +176,7 @@ RLT fits both tasks at the training length, but accuracy declines on longer sequ
 
 - [Updated paper](./Recurrent_Looped_Transformer.pdf)
 - [Project website](https://yifanzhang-pro.github.io/recurrent-looped-tranformer/)
-- [Experiment figures and snapshot data](assets/experiments-depth8/README.md)
+- [Experiment figures](assets/experiments-depth8/README.md)
 - [Prefill–decode kernel mismatch note](https://github.com/yifanzhang-pro/Pretraining-RL-Science/blob/master/Prefill_Decode_Kernel_Mismatch.pdf)
 
 ## Citation
