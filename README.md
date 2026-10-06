@@ -5,8 +5,8 @@
 
 ### Recurrent computation across prompt and response
 
-**Recurrent Looped Transformer (RLT-1)** feeds the previous token's final decoder state into the current token's decoder input through a gated merge.
-A causal encoder supplies token representations and global key–value (KV) memory, and the decoder keeps a sliding-window attention (SWA) cache at every layer.
+**Recurrent Looped Transformer (RLT)** feeds the previous token's final decoder state into the current token's decoder input through a gated merge, so the computation path grows with sequence length at a fixed per-token cost.
+A parallel causal encoder supplies token representations and global key–value (KV) memory, and the decoder keeps a sliding-window attention (SWA) cache at every layer.
 The same update runs over prompt and response tokens.
 
 **Authors:** [Yifan Zhang](https://yifzhang.com)¹, Jichen Feng², Shihan Qin² · ¹Princeton University, ²University of Pennsylvania
