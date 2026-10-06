@@ -24,4 +24,4 @@ It compares each run's best in-distribution checkpoint with its step-2,000 check
 | Bracketed mod 5: length generalization | [PNG](mod5-with-brackets-generalization.png) | [PDF](mod5-with-brackets-generalization.pdf) | [SVG](mod5-with-brackets-generalization.svg) |
 | Sixteen-layer parity: best versus step 2,000 | [PNG](parity-depth16-best-vs-step2000.png) | [PDF](parity-depth16-best-vs-step2000.pdf) | [SVG](parity-depth16-best-vs-step2000.svg) |
 
-The addition feedback-scale ablation is in [`../addition-feedback-20260925/`](../addition-feedback-20260925/).
+The three-seed addition feedback-scale ablation is in [`../addition-feedback-20261005/`](../addition-feedback-20261005/).

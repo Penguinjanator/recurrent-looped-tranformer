@@ -150,7 +150,7 @@ These are CPU training steps; wall-clock speed on other hardware depends on the 
 
 All models reach 100% teacher-forced accuracy on 1–8-digit addition validation, but accuracy drops beyond eight digits; at 32 digits the eight-layer model means range from 14.89% to 16.84%.
 Standard S5 remains near the 1/120 reference across feedback variants.
-A seed-42 ablation of the feedback scale finds no reduction that improves addition accuracy at every width and split ([figure](assets/addition-feedback-20260925/addition-feedback-generalization.png)).
+A three-seed ablation of the feedback scale finds no consistent effect on addition: across 63 comparisons with α = 0.1 at the same split and width, lowering α to 0.03 or 0.01 raises 37 means and lowers 26, and only three differences exceed both sample SDs ([figure](assets/addition-feedback-20261005/generalization-three-seed.png)).
 These experiments use supervised training; RL performance is not evaluated.
 
 ### Complete six-task study at 2,000 steps
