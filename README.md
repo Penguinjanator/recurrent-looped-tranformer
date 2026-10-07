@@ -1,6 +1,6 @@
 # Recurrent Looped Transformer
 
-[![Paper](https://img.shields.io/badge/Paper-b31b1b.svg)](./Recurrent_Looped_Transformer.pdf)
+[![arXiv](https://img.shields.io/badge/arXiv-2610.07591-b31b1b.svg)](https://arxiv.org/abs/2610.07591)
 [![Website](https://img.shields.io/badge/Project-Website-blue)](https://yifanzhang-pro.github.io/recurrent-looped-tranformer/)
 
 ### Recurrent computation across prompt and response
@@ -11,9 +11,9 @@ The same update runs over prompt and response tokens.
 
 **Authors:** [Yifan Zhang](https://yifzhang.com)¹, Jichen Feng², Shihan Qin² · ¹Princeton University, ²University of Pennsylvania
 
-**Report:** September 12, 2026 · **Updated:** October 5, 2026
+**arXiv:** [2610.07591](https://arxiv.org/abs/2610.07591) · **Submitted:** October 6, 2026 · **Updated:** October 7, 2026
 
-[[Paper](./Recurrent_Looped_Transformer.pdf)] [[中文论文](./Recurrent_Looped_Transformer_ZH.pdf)] [[Project website](https://yifanzhang-pro.github.io/recurrent-looped-tranformer/)] [[Depth allocation](#depth-allocation-and-length-generalization)] [[Feedback frequency](#feedback-frequency)] [[Complete six-task study](#complete-six-task-study-at-2000-steps)]
+[[arXiv](https://arxiv.org/abs/2610.07591)] [[PDF](https://arxiv.org/pdf/2610.07591)] [[中文论文](./Recurrent_Looped_Transformer_ZH.pdf)] [[Project website](https://yifanzhang-pro.github.io/recurrent-looped-tranformer/)] [[Depth allocation](#depth-allocation-and-length-generalization)] [[Feedback frequency](#feedback-frequency)] [[Complete six-task study](#complete-six-task-study-at-2000-steps)]
 
 ![RLT recurrence across the last prompt tokens and the first response token.](figure1.png)
 
@@ -282,7 +282,9 @@ RLT fits both tasks at the training length, but accuracy declines on longer sequ
 
 ## Resources
 
-- [Updated paper](./Recurrent_Looped_Transformer.pdf)
+- [Paper on arXiv](https://arxiv.org/abs/2610.07591)
+- [Paper PDF](https://arxiv.org/pdf/2610.07591)
+- [Repository PDF](./Recurrent_Looped_Transformer.pdf)
 - [中文论文](./Recurrent_Looped_Transformer_ZH.pdf)
 - [Project website](https://yifanzhang-pro.github.io/recurrent-looped-tranformer/)
 - [Depth-eight experiment figures](assets/experiments-depth8/README.md)
@@ -293,12 +295,14 @@ RLT fits both tasks at the training length, but accuracy declines on longer sequ
 ## Citation
 
 ```bibtex
-@techreport{zhang2026recurrentlooped,
-  title  = {Recurrent Looped Transformer},
-  author = {Zhang, Yifan and Feng, Jichen and Qin, Shihan},
-  year   = {2026},
-  month  = sep,
-  url    = {https://github.com/yifanzhang-pro/recurrent-looped-tranformer}
+@misc{zhang2026recurrentlooped,
+  title         = {Recurrent Looped Transformer},
+  author        = {Zhang, Yifan and Feng, Jichen and Qin, Shihan},
+  year          = {2026},
+  eprint        = {2610.07591},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2610.07591}
 }
 ```
 

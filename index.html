@@ -4,13 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Recurrent Looped Transformer</title>
-<meta name="description" content="Recurrent Looped Transformer: architecture, encoder–decoder depth allocation, feedback-interval controls, and consistent policy replay. Updated October 5, 2026.">
+<meta name="description" content="Recurrent Looped Transformer: architecture, encoder–decoder depth allocation, feedback-interval controls, and consistent policy replay. arXiv:2610.07591. Updated October 7, 2026.">
 <meta name="citation_author" content="Yifan Zhang">
 <meta name="citation_author" content="Jichen Feng">
 <meta name="citation_author" content="Shihan Qin">
 <meta name="citation_title" content="Recurrent Looped Transformer">
-<meta name="citation_publication_date" content="2026/09/12">
-<meta name="citation_pdf_url" content="https://raw.githubusercontent.com/yifanzhang-pro/recurrent-looped-tranformer/master/Recurrent_Looped_Transformer.pdf">
+<meta name="citation_publication_date" content="2026/10/06">
+<meta name="citation_doi" content="10.48550/arXiv.2610.07591">
+<meta name="citation_abstract_html_url" content="https://arxiv.org/abs/2610.07591">
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2610.07591">
 <meta property="og:title" content="Recurrent Looped Transformer">
 <meta property="og:description" content="Recurrent computation across prompt and response, with three-seed experiments on depth allocation and feedback frequency.">
 <meta property="og:type" content="website">
@@ -230,8 +232,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #73
 <h1 class="title">Recurrent Looped<br>Transformer</h1>
 <p class="subtitle is-hero-subtitle"><span class="highlight">Recurrent computation across prompt and response.</span><br>Six algorithmic tasks, encoder–decoder depth allocation, and feedback-interval controls.</p>
 <div class="authors-list"><a href="https://yifzhang.com">Yifan Zhang</a><sup>1</sup> &nbsp;·&nbsp; Jichen Feng<sup>2</sup> &nbsp;·&nbsp; Shihan Qin<sup>2</sup></div>
-<div class="affiliations"><sup>1</sup>Princeton University &nbsp;·&nbsp; <sup>2</sup>University of Pennsylvania<br>Technical report &nbsp;·&nbsp; September 12, 2026 &nbsp;·&nbsp; Updated October 5, 2026</div>
-<div class="hero-links"><a class="button primary" href="Recurrent_Looped_Transformer.pdf">Paper ↗</a><a class="button" href="https://github.com/yifanzhang-pro/recurrent-looped-tranformer">GitHub ↗</a><a class="button" href="#experiments">Experimental results ↓</a><a class="button" href="#citation">Cite this work</a></div>
+<div class="affiliations"><sup>1</sup>Princeton University &nbsp;·&nbsp; <sup>2</sup>University of Pennsylvania<br>arXiv:2610.07591 &nbsp;·&nbsp; Submitted October 6, 2026 &nbsp;·&nbsp; Updated October 7, 2026</div>
+<div class="hero-links"><a class="button primary" href="https://arxiv.org/abs/2610.07591">arXiv ↗</a><a class="button" href="https://arxiv.org/pdf/2610.07591">PDF ↗</a><a class="button" href="https://github.com/yifanzhang-pro/recurrent-looped-tranformer">GitHub ↗</a><a class="button" href="#experiments">Experimental results ↓</a><a class="button" href="#citation">Cite this work</a></div>
 <div style="margin-top:1.4rem"><span class="pill">Hidden-state feedback</span><span class="pill">Feedback interval</span><span class="pill">Three-seed experiments</span></div>
 </div></div></header>
 <main id="main">
@@ -508,15 +510,17 @@ Comparing each run&#x27;s best in-distribution checkpoint with its step-2,000 ch
 <p><strong>Forward consistency and complete gradients are separate requirements.</strong> Full BPTT includes paths through recurrent outputs, decoder KV, and encoder memory. Detaching any of these changes the gradient. Parameter updates invalidate old caches for exact current-policy replay.</p>
 <p>Behavior log-probabilities must describe the actual sampling distribution. Exact importance sampling additionally requires support coverage. Shared transitions remove structural prompt-boundary mismatch; numerical kernel parity and off-policy estimation remain separate concerns.</p>
 <p>For the execution-level distinction, see the <a href="https://github.com/yifanzhang-pro/Pretraining-RL-Science/blob/master/Prefill_Decode_Kernel_Mismatch.pdf">prefill–decode kernel mismatch note</a>.</p>
-<p><a class="button is-primary" href="Recurrent_Looped_Transformer.pdf">Read the full report ↗</a></p>
+<p><a class="button is-primary" href="https://arxiv.org/abs/2610.07591">Read the paper on arXiv ↗</a></p>
 </div></div></section>
 <section id="citation" class="section content-section"><div class="container"><h2 class="section-title">Citation</h2><div class="content"><p>If you find this work useful, please cite:</p>
-<pre id="cite-bibtex"><code>@techreport{zhang2026recurrentlooped,
-  title  = {Recurrent Looped Transformer},
-  author = {Zhang, Yifan and Feng, Jichen and Qin, Shihan},
-  year   = {2026},
-  month  = sep,
-  url    = {https://github.com/yifanzhang-pro/recurrent-looped-tranformer}
+<pre id="cite-bibtex"><code>@misc{zhang2026recurrentlooped,
+  title         = {Recurrent Looped Transformer},
+  author        = {Zhang, Yifan and Feng, Jichen and Qin, Shihan},
+  year          = {2026},
+  eprint        = {2610.07591},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2610.07591}
 }</code></pre>
 <button type="button" id="copy-cite" class="button">Copy BibTeX</button><p id="copy-status" role="status" aria-live="polite"></p>
 </div></div></section>
