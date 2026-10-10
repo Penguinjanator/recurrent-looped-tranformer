@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A 14-slide research talk connecting linear attention, state-space models, DeltaNet, and Recurrent Looped Transformers.">
+  <title>Linear Attention, State Spaces, and RLT / Yifan Zhang</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="vendor/fonts.css">
+  <link rel="stylesheet" href="slides.css">
+  <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'local'},options:{ignoreHtmlClass:'speaker-notes'},startup:{typeset:true}};</script>
+  <script defer src="vendor/tex-svg.js"></script>
+  <script defer src="slides.js"></script>
+  <script id="presentation-locale" type="application/json">{"overview":"14 slides / Esc to close","planned":"Suggested pace: {duration} min / Talk progress: {start}–{end} min"}</script>
+</head>
+<body>
+<div class="stage" id="stage"><main class="deck fast" id="deck" aria-label="Linear Attention, State Spaces, and RLT presentation">
+
+<!-- 01: Linear Attention, State Spaces, and RLT -->
+<section class="slide rlt center title-slide" data-title="Linear Attention, State Spaces, and RLT" data-section="Sequence models" data-main="true" data-minutes="0.5" data-bg="dark">
+<div class="slide-body">
+<p class="eyebrow">Princeton University / Research talk</p>
+<h1 class="display title-display">Linear Attention,<br>State Spaces, and RLT</h1>
+<p class="kicker">Memory updates and computation across tokens</p>
+<div class="byline"><span class="name">Yifan Zhang</span><span class="meta">Princeton ECE / October 2026</span></div>
+<p class="title-credit">Based on <em>A Note on Linear Attention and State Space Models</em><br>and <em>Recurrent Looped Transformer</em></p>
+<p class="start-hint">Arrow keys to navigate / O overview / N speaker notes</p>
+</div>
+<span class="page-number">01 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>The organizing question is what a sequence model carries forward and how it updates that state.
+The note explains linear attention, selective state spaces, and the delta rule using explicit recurrences.
+RLT adds a different choice: a complete Transformer decoder becomes the recurrent cell.</p>
+<p>We will derive the attention–recurrence connection, identify the algebra behind parallel evaluation, and then write RLT's transition function explicitly.
+The final examples concern supervised algorithmic state tracking.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Zhang and Kung / Linear Attention and SSMs</a> / <a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">Zhang et al. / RLT</a></p>
+</aside>
+</section>
+
+<!-- 02: The state-space view -->
+<section class="slide rlt " data-title="The state-space view" data-section="01 / A common language" data-main="true" data-minutes="1">
+<p class="eyebrow">01 / A common language</p>
+<h2 class="s-title">The state-space view</h2>
+<div class="slide-body">
+<div class="formula math-large">\[h_t=\mathcal F_\theta(h_{t-1};u_t),\qquad y_t=\mathcal G_\theta(h_t;u_t)\]</div>
+<table class="prose-table notation-table">
+<thead><tr><th>Object</th><th>Meaning</th><th>Question to ask</th></tr></thead>
+<tbody>
+<tr><th>State \(h_t\)</th><td>Information carried into the next update</td><td>What must persist?</td></tr>
+<tr><th>Input \(u_t\)</th><td>New data and conditioning features</td><td>What is available before the update?</td></tr>
+<tr><th>Transition \(\mathcal F_\theta\)</th><td>The rule that transforms the state</td><td>Affine or nonlinear in the old state?</td></tr>
+</tbody></table>
+<p class="sub">The recurrence index can represent token position or network depth.</p>
+<p class="credits"><strong>Note:</strong> Yifan Zhang and Sun-Yuan Kung<br><strong>RLT:</strong> Yifan Zhang, Jichen Feng, Shihan Qin, Sun-Yuan Kung, and Mengdi Wang</p>
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / State-space representations</a> / <a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">RLT / Sequence and state</a></p>
+<span class="page-number">02 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>A state-space representation is a mathematical description, broader than the structured SSM layers used in modern language models.
+An RNN is one instance, with a learned nonlinear transition.
+A layered network can also be expressed recursively over depth, but that alone does not create memory across tokens.</p>
+<p>The state must include everything needed for the next transition, conditional on the supplied input.
+For RLT, the feedback vector alone is insufficient because the decoder also reads a local KV cache.
+Its global encoder memory will appear explicitly as a conditioning input.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / State-space representations</a> / <a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">RLT / Sequence and state</a></p>
+</aside>
+</section>
+
+<!-- 03: Linear attention as recurrent memory -->
+<section class="slide rlt " data-title="Linear attention as recurrent memory" data-section="02 / Linear attention" data-main="true" data-minutes="1.5">
+<p class="eyebrow">02 / Linear attention</p>
+<h2 class="s-title">Linear attention as recurrent memory</h2>
+<div class="slide-body">
+<button class="paper-figure memory-figure" data-figure="assets/note-linear-attention-duality.svg" data-caption="Original note: keys and values write to a fixed-size memory; queries read from it. The figure shows the unnormalized read." aria-label="Enlarge figure"><img src="assets/linear-attention-recurrent.png" alt="Original note: keys and values write to a fixed-size memory; queries read from it. The figure shows the unnormalized read."></button>
+<p class="definition compact-definition">Key features \(a_t=\phi(k_t)\), query features \(b_t=\phi(q_t)\). Read after writing the current token.</p>
+<div class="formula">\[S_t=S_{t-1}+a_tv_t^\top,\qquad z_t=z_{t-1}+a_t,\qquad y_t=\frac{S_t^\top b_t}{z_t^\top b_t+\varepsilon}\]</div>
+<p class="sub">State size \(O(md_v)\) stays fixed as the sequence grows. The vector \(z_t\) supplies the normalizer.</p>
+
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Linear attention and original figure</a> / <a href="https://proceedings.mlr.press/v119/katharopoulos20a.html" target="_blank" rel="noopener">Katharopoulos et al., 2020</a></p>
+<span class="page-number">03 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>Initialize both states to zero and use a read-after-write convention, so the query at position t includes the current key and value.
+The matrix state stores the sum of all outer products, while the vector state stores the sum of key features.
+Nonnegative kernel features and a positive epsilon give a positive normalizer.</p>
+<p>“Linear” refers to the sequence-length cost of the recurrent evaluation at fixed feature and value dimensions.
+The feature map and the surrounding network can be nonlinear.
+The recurrent state update itself is additive and therefore affine in the old state.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Linear attention and original figure</a> / <a href="https://proceedings.mlr.press/v119/katharopoulos20a.html" target="_blank" rel="noopener">Katharopoulos et al., 2020</a></p>
+</aside>
+</section>
+
+<!-- 04: The same computation in attention form -->
+<section class="slide rlt " data-title="The same computation in attention form" data-section="03 / Exact dual views" data-main="true" data-minutes="1.5">
+<p class="eyebrow">03 / Exact dual views</p>
+<h2 class="s-title">The same computation in attention form</h2>
+<div class="slide-body">
+<button class="paper-figure attention-figure" data-figure="assets/note-linear-attention-duality.svg" data-caption="Original note: query–key products, a causal mask, and value mixing give the same unnormalized output. N in the figure is sequence length T." aria-label="Enlarge figure"><img src="assets/linear-attention-parallel.png" alt="Original note: query–key products, a causal mask, and value mixing give the same unnormalized output. N in the figure is sequence length T."></button>
+<div class="formula plain">\[S_t=\sum_{j\le t}a_jv_j^\top\quad\Longrightarrow\quad S_t^\top b_t=\sum_{j\le t}(b_t^\top a_j)v_j\]</div>
+<div class="formula">\[Y=(M\odot\Phi_Q\Phi_K^\top)V,\qquad M_{tj}=\mathbf 1\{j\le t\}\]</div>
+<p class="sub">Same outputs, different evaluation: a running state or a causal \(T\times T\) score matrix.</p>
+<p class="small">Unnormalized outputs shown. Normalized attention also divides each row by its kernel sum.</p>
+
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Original recurrent and parallel views</a> / <a href="https://proceedings.mlr.press/v119/katharopoulos20a.html" target="_blank" rel="noopener">Katharopoulos et al., 2020</a></p>
+<span class="page-number">04 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>Stack the query and key features into rows of Phi-Q and Phi-K.
+The causal mask removes future positions.
+Reordering the sums gives the same output as the recurrence, with no approximation between these two forms.</p>
+<p>This equivalence does not identify a finite feature kernel with ordinary softmax attention.
+Any approximation to the softmax kernel is a separate choice.
+The recurrent implementation takes O(T m d-v) work and O(m d-v) state. The explicit attention implementation materializes a quadratic score matrix. Specialized chunk algorithms offer further evaluation choices.
+For normalized attention, the same rearrangement applies to the denominator.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Original recurrent and parallel views</a> / <a href="https://proceedings.mlr.press/v119/katharopoulos20a.html" target="_blank" rel="noopener">Katharopoulos et al., 2020</a></p>
+</aside>
+</section>
+
+<!-- 05: Selective SSMs and state-space duality -->
+<section class="slide rlt " data-title="Selective SSMs and state-space duality" data-section="04 / Decay and selectivity" data-main="true" data-minutes="1.5">
+<p class="eyebrow">04 / Decay and selectivity</p>
+<h2 class="s-title">Selective SSMs and state-space duality</h2>
+<div class="slide-body">
+<div class="ssm-layout">
+<button class="paper-figure ssm-figure" data-figure="assets/mamba-selection.svg" data-caption="Gu and Dao, Mamba, Figure 1: input-dependent selection controls the recurrent state update." aria-label="Enlarge figure"><img src="assets/mamba-selection.svg" alt="Gu and Dao, Mamba, Figure 1: input-dependent selection controls the recurrent state update."></button>
+<div class="ssm-copy"><p class="definition">The SSM core</p>
+<div class="formula plain">\[h_t=\bar A_t h_{t-1}+\bar B_t x_t\]</div>
+<div class="formula plain">\[y_t=C_t^\top h_t\]</div>
+<p class="sub">Mamba selects \(\Delta_t,B_t,C_t\) from layer inputs.<br>\(\bar A_t=\exp(\Delta_t A)\).</p></div>
+</div>
+<p class="equation-label">Scalar-transition SSD, with zero initial state</p>
+<div class="formula ssd-equation">\[\begin{aligned}
+S_t&=\rho_t S_{t-1}+B_t x_t^\top,\qquad y_t=S_t^\top C_t\\[3pt]
+Y&=(L\odot CB^\top)X,\qquad L_{tj}=\mathbf 1\{j\le t\}\,\textstyle\prod_{r=j+1}^{t}\rho_r
+\end{aligned}\]</div>
+<p class="sub">\(C\): queries, \(B\): keys, \(X\): values. Setting \(\rho_t=1\) recovers causal linear attention.</p>
+
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Selective SSMs and SSD</a> / <a href="https://arxiv.org/abs/2312.00752" target="_blank" rel="noopener">Gu and Dao / Mamba, Fig. 1</a> / <a href="https://arxiv.org/abs/2405.21060" target="_blank" rel="noopener">Dao and Gu / SSD</a></p>
+<span class="page-number">05 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>The figure is reproduced from Mamba Figure 1, https://arxiv.org/html/2312.00752v2/selection.svg. It illustrates selection and the expanded recurrent state. The equations on the right give the discrete SSM core.
+Mamba selects coefficients from the current layer input, which allows them to be computed before the recurrent scan of that layer.
+Once those inputs are fixed, the update is affine in the previous recurrent state.
+This is more specific than a general model whose coefficients depend on that same previous state.</p>
+<p>For the scalar-transition SSD case, S is an m by d-v matrix, B and C are m-dimensional vectors, and x is d-v dimensional.
+The scalar rho is the decay at a position.
+Unrolling the recurrence weights each key–query interaction by the product of intervening decays.
+The empty product for j=t equals one.</p>
+<p>The duality is the core connection used by Mamba-2.
+It concerns this structured mixer and does not equate every Transformer block with every SSM architecture.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Selective SSMs and SSD</a> / <a href="https://arxiv.org/abs/2312.00752" target="_blank" rel="noopener">Gu and Dao / Mamba, Fig. 1</a> / <a href="https://arxiv.org/abs/2405.21060" target="_blank" rel="noopener">Dao and Gu / SSD</a></p>
+</aside>
+</section>
+
+<!-- 06: DeltaNet writes the retrieval error -->
+<section class="slide rlt " data-title="DeltaNet writes the retrieval error" data-section="05 / Corrective memory" data-main="true" data-minutes="1.5">
+<p class="eyebrow">05 / Corrective memory</p>
+<h2 class="s-title">DeltaNet writes the retrieval error</h2>
+<div class="slide-body">
+<button class="paper-figure memory-figure" data-figure="assets/delta-recurrent.svg" data-caption="Original note: DeltaNet modifies the old memory along the current key, then writes the new value." aria-label="Enlarge figure"><img src="assets/delta-recurrent.png" alt="Original note: DeltaNet modifies the old memory along the current key, then writes the new value."></button>
+<div class="formula">\[\begin{aligned}
+S_t&=S_{t-1}+\eta_ta_t\bigl(v_t-S_{t-1}^\top a_t\bigr)^\top\\[3pt]
+&=\bigl(I-\eta_ta_ta_t^\top\bigr)S_{t-1}+\eta_ta_tv_t^\top
+\end{aligned}\]</div>
+<p class="sub">Write the retrieval error. The update is affine in the old state when the inputs are fixed.</p>
+<p class="small">Green arrows: writes. Dashed red arrows: key-dependent edits to the old memory.</p>
+
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Delta Networks and original figure</a> / <a href="https://arxiv.org/abs/2406.06484" target="_blank" rel="noopener">Yang et al., 2024</a></p>
+<span class="page-number">06 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>The squared loss asks the memory matrix to retrieve v from key a.
+Taking one gradient step yields an error-correcting write.
+Expanding the error exposes an affine state transition with a rank-one edit.</p>
+<p>The scalar example uses zero initial state and epsilon zero for normalized attention.
+After the first value, each memory holds or reads 1.
+The second additive write produces a sum of 4, and its normalized read divides by two.
+DeltaNet instead adds the error 3 minus 1, giving 3.</p>
+<p>The edit matrix is an orthogonal projector only when eta equals the inverse squared key norm.
+The general update is a rank-one edit.
+The note also derives a triangular solve for the residual writes, followed by a masked read.
+That structure supports the chunkwise parallel algorithms studied by Yang and colleagues.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Delta Networks and original figure</a> / <a href="https://arxiv.org/abs/2406.06484" target="_blank" rel="noopener">Yang et al., 2024</a></p>
+</aside>
+</section>
+
+<!-- 07: Why affine updates admit a scan -->
+<section class="slide rlt " data-title="Why affine updates admit a scan" data-section="06 / The algebra of parallel evaluation" data-main="true" data-minutes="1.5">
+<p class="eyebrow">06 / The algebra of parallel evaluation</p>
+<h2 class="s-title">Why affine updates admit a scan</h2>
+<div class="slide-body">
+<p class="definition">Fix a layer’s input sequence. Represent one transition by \((A_t,c_t)\):</p>
+<div class="formula math-large">\[h_t=A_t h_{t-1}+c_t\]</div>
+<div class="formula plain">\[\underbrace{(A_2,c_2)\circ(A_1,c_1)}_{\text{two consecutive updates}}=(A_2A_1,\ A_2c_1+c_2)\]</div>
+<div class="text-columns">
+<div><h3>Closed under composition</h3><p>A segment of updates is still one affine map. Prefix composition is associative.</p></div>
+<div><h3>Structure controls cost</h3><p>Additive, diagonal, scalar, and low-rank forms support efficient implementations.</p></div>
+</div>
+<p class="research-question">A general nonlinear recurrence has no comparable fixed-size affine summary.</p>
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Structured transitions</a> / <a href="https://arxiv.org/abs/2312.00752" target="_blank" rel="noopener">Mamba / Parallel scan</a> / <a href="https://arxiv.org/abs/2406.06484" target="_blank" rel="noopener">DeltaNet / Parallelization</a></p>
+<span class="page-number">07 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>Substitute the first update into the second to derive the pair-composition rule.
+Its associativity enables prefix scans.
+This is an algebraic statement about the affine core after its inputs and coefficients are fixed.</p>
+<p>Associativity alone does not guarantee speed: dense matrix products can be expensive, and products of rank-one edits need not remain rank one.
+SSMs exploit structured transitions, while DeltaNet uses specialized factorizations and triangular solves.</p>
+<p>Function composition is associative even for nonlinear functions.
+The issue for a general nonlinear cell is that composing many cells does not leave a compact affine pair with cheap composition.
+RLT therefore cannot directly use this affine-scan algorithm.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Structured transitions</a> / <a href="https://arxiv.org/abs/2312.00752" target="_blank" rel="noopener">Mamba / Parallel scan</a> / <a href="https://arxiv.org/abs/2406.06484" target="_blank" rel="noopener">DeltaNet / Parallelization</a></p>
+</aside>
+</section>
+
+<!-- 08: RLT: a Transformer decoder as the recurrent cell -->
+<section class="slide rlt architecture" data-title="RLT: a Transformer decoder as the recurrent cell" data-section="07 / Recurrent Looped Transformer" data-main="true" data-minutes="1.5">
+<p class="eyebrow">07 / Recurrent Looped Transformer</p>
+<h2 class="s-title">RLT: a Transformer decoder as the recurrent cell</h2>
+<div class="slide-body">
+<div class="architecture-layout">
+<button class="paper-figure" data-figure="assets/architecture-rlt1.svg" data-caption="RLT-1: parallel causal encoder, global encoder memory, and token-by-token decoder feedback" aria-label="Enlarge RLT architecture"><img src="assets/architecture-rlt1.svg" alt="RLT-1 architecture showing gated output feedback, decoder SWA caches, and encoder-memory cross-attention"></button>
+<div class="architecture-copy">
+<h3>Causal encoder</h3><p>Known tokens produce \(e_t\) and prefix memory \(M_{\le t}\).</p>
+<h3>Gated feedback</h3><p>Merge \(e_t\) with the previous final decoder output \(s_{t-1}\).</p>
+<h3>Full decoder update</h3><p>SWA, cross-attention, and an FFN transform the merged input.</p>
+<p class="small">SWA = sliding-window attention.<br>Every output predicts the next token.</p>
+</div></div>
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">RLT / Encoder, gated merge, and decoder blocks</a></p>
+<span class="page-number">08 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>Read the figure from bottom to top.
+The causal encoder produces a representation at each position and projected key–value memory.
+For known tokens, each encoder layer can process positions in parallel with a causal mask.</p>
+<p>The decoder receives the current encoder representation and the previous token's final decoder output through the gated merge.
+Each decoder layer has local sliding-window self-attention, cross-attention to the causal prefix of encoder memory, and a feed-forward network.
+The orange feedback path returns the final decoder output to the next token's merge.</p>
+<p>The paper authors are Yifan Zhang, Jichen Feng, Shihan Qin, Sun-Yuan Kung, and Mengdi Wang.
+The architecture figure is reused from the supplied general-exam slides, whose source is the RLT manuscript.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">RLT / Encoder, gated merge, and decoder blocks</a></p>
+</aside>
+</section>
+
+<!-- 09: RLT’s explicit state-transition function -->
+<section class="slide rlt " data-title="RLT’s explicit state-transition function" data-section="08 / A nonlinear state-space system" data-main="true" data-minutes="2">
+<p class="eyebrow">08 / A nonlinear state-space system</p>
+<h2 class="s-title">RLT’s explicit state-transition function</h2>
+<div class="slide-body">
+<p class="definition">Complete decoder state: \(H=(s,C^D)\), including the feedback vector and local KV cache.</p>
+<div class="equation-stack">
+<div class="formula">\[\boxed{\mathcal F_\Theta(H;e,M,t):=D_\phi\bigl(\operatorname{Merge}(e,s);M,C^D,t\bigr)}\]</div>
+<div class="formula plain">\[\begin{aligned}
+r&=\operatorname{Norm}_s(s),\qquad g=\sigma\bigl(W_g[e;r]+b_g\bigr),\\
+\operatorname{Merge}(e,s)&=e+\alpha\,g\odot W_s r
+\end{aligned}\]</div>
+<div class="formula">\[H_t=\mathcal F_\Theta(H_{t-1};e_t,M_{\le t},t),\qquad H_0=(s_\star,\varnothing)\]</div>
+<div class="formula plain math-compact">\[\mathcal G_\Theta(H)=\operatorname{softmax}\bigl(W_o\operatorname{Norm}_o(s)\bigr),\qquad p_\Theta(\cdot\mid x_{1:t})=\mathcal G_\Theta(H_t)\]</div>
+</div>
+<p class="sub">One transition updates both \(s_t\) and \(C_t^D\), conditioned on encoder features and memory.</p>
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">RLT / Method, with the current manuscript’s explicit state-space notation</a></p>
+<span class="page-number">09 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>The function definition specifies the state transformation rather than merely calling RLT an SSM.
+Given the old state H, extract s for the merge and C-D for decoder self-attention.
+The full decoder returns the new feedback vector and the updated cache.</p>
+<p>The conditioning inputs e, M, and the absolute token position t remain explicit.
+The output function uses the feedback vector component of the new state to predict the next token.
+The initial feedback vector is learned, and the initial decoder cache is empty.</p>
+<p>The norm, gate, attention, and feed-forward operations make this transition nonlinear in the previous decoder state, even after the encoder inputs are fixed.
+The same cell parameters are reused across tokens, while different decoder layers may have different parameters.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">RLT / Method, with the current manuscript’s explicit state-space notation</a></p>
+</aside>
+</section>
+
+<!-- 10: Feedback extends the computation across tokens -->
+<section class="slide rlt " data-title="Feedback extends the computation across tokens" data-section="09 / RNN interpretation" data-main="true" data-minutes="1">
+<p class="eyebrow">09 / RNN interpretation</p>
+<h2 class="s-title">Feedback extends the computation across tokens</h2>
+<div class="slide-body">
+<div class="formula">\[H_T=F_T\circ\cdots\circ F_1(H_0),\qquad F_t(H)=\mathcal F_\Theta(H;e_t,M_{\le t},t)\]</div>
+<button class="paper-figure parity-figure" data-figure="assets/visual-rlt-parity.svg" data-caption="Running parity illustrates a repeated update: toggle on 1 and preserve on 0" aria-label="Enlarge running parity illustration"><img src="assets/visual-rlt-parity.svg" alt="Running parity starts even and processes bits 1, 1, 0, 1 to end odd"></button>
+<div class="text-columns" style="margin-top:10px">
+<div><h3>Per token</h3><p>\(L_E+L_D\) Transformer blocks.<br>The merge connects successive updates.</p></div>
+<div><h3>Across \(T\) tokens</h3><p>The feedback path traverses \(T L_D\) decoder blocks with parameters reused.</p></div>
+</div>
+<p class="sub">Known-token encoding is parallel. RLT-1 decoder updates follow token order.</p>
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">RLT / Prompt-state composition and depth accounting</a></p>
+<span class="page-number">10 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>A running parity computation is a simple example of a repeated state update: a one toggles parity and a zero preserves it.
+The picture illustrates the task, not a decoded internal neuron or a proof of the learned representation.</p>
+<p>RLT is an RNN whose cell is a gated merge followed by a full Transformer decoder.
+It gains a computation path through multiple decoder stacks as more tokens arrive.
+Each token still runs the stated number of blocks.
+The T times L-D count refers to this feedback path, not to a claim of lower total attention cost.</p>
+<p>For L-D equal to zero, there are no decoder blocks but the gated merge still recurs.
+The experiments use several encoder–decoder allocations, so decoder depth and recurrence remain distinct design choices.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">RLT / Prompt-state composition and depth accounting</a></p>
+</aside>
+</section>
+
+<!-- 11: Length generalization depends on the depth split -->
+<section class="slide rlt " data-title="Length generalization depends on the depth split" data-section="10 / RLT evidence" data-main="true" data-minutes="1.5">
+<p class="eyebrow">10 / RLT evidence</p>
+<h2 class="s-title">Length generalization depends on the depth split</h2>
+<div class="slide-body">
+<p class="definition">Eight-layer models. Test accuracy at length 256, mean ± sample SD over three seeds.</p>
+<table class="prose-table results-table">
+<thead><tr><th>Task</th><th>RLT-1 allocation</th><th>GPT Layer 8</th><th>RLT-1</th></tr></thead>
+<tbody>
+<tr><th>Parity<br><span class="small">Train: 3–40 bits</span></th><td>Layer 5 + 3<br>or Layer 7 + 1</td><td>50.07 ± 1.63%</td><td>100.00 ± 0.00%</td></tr>
+<tr><th>Swaps-\(S_5\)<br><span class="small">Train: 32 operations</span></th><td>Layer 4 + 4</td><td>0.85 ± 0.30%</td><td>97.30 ± 2.76%</td></tr>
+</tbody></table>
+<p class="sub">Parity favors a shallow decoder. Swap tracking benefits from more decoder layers.</p>
+<p class="small" style="margin-top:16px">2,000 training steps, seeds 42–44, 1,024 shared test examples per length.<br>Each run selects its checkpoint using minimum in-distribution validation loss.</p>
+<p class="small" style="margin-top:14px">Layer counts match. Parameters and compute differ: RLT-1 has 26.10–28.73M parameters, versus GPT’s 25.31M.</p>
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/contents/experiments.tex" target="_blank" rel="noopener">RLT / Algorithmic experiments and length extrapolation</a></p>
+<span class="page-number">11 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>These are selected length-generalization results from the manuscript's six-task study.
+Parity scores the final answer, while swaps-S5 scores the final permutation state.
+The swaps task uses the identity and the ten single transpositions of five elements.
+Its uniform final-state reference is 1/120, about 0.83 percent.</p>
+<p>The best encoder–decoder allocation depends on the task.
+Both parity allocations listed achieve 100 percent in each of the three seeds.
+For swaps, increasing decoder depth up to four layers improves the reported 256-operation result.
+The seeds vary initialization on a shared training stream and held-out examples.</p>
+<p>All comparisons use width 512 and four attention heads.
+Equal logical depth is not a parameter- or compute-matched comparison.
+Addition extrapolation and standard S5 remain difficult in this study.
+These experiments compare RLT with a Transformer baseline and do not measure an SSM or DeltaNet baseline.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/contents/experiments.tex" target="_blank" rel="noopener">RLT / Algorithmic experiments and length extrapolation</a></p>
+</aside>
+</section>
+
+<!-- 12: Feedback frequency and parallelism -->
+<section class="slide rlt " data-title="Feedback frequency and parallelism" data-section="11 / RLT-1 and RLT-2" data-main="true" data-minutes="1.5">
+<p class="eyebrow">11 / RLT-1 and RLT-2</p>
+<h2 class="s-title">Feedback frequency and parallelism</h2>
+<div class="slide-body">
+<button class="paper-figure schedule-figure" data-figure="assets/visual-rlt-schedule.svg" data-caption="For known tokens, RLT-1 has per-token feedback, RLT-2 has chunk-boundary feedback, and RLT-0 removes feedback" aria-label="Enlarge feedback schedules"><img src="assets/visual-rlt-schedule.svg" alt="Feedback schedules: token-by-token RLT-1, chunked RLT-2, and RLT-0 without feedback"></button>
+<table class="prose-table schedule-table">
+<thead><tr><th>At Layer 4 + 4</th><th>Feedback interval</th><th>Parity / 64 bits</th><th>Swaps-\(S_5\) / 64 ops</th></tr></thead>
+<tbody>
+<tr><th>RLT-1</th><td>1 token</td><td>100.00 ± 0.00%</td><td>100.00 ± 0.00%</td></tr>
+<tr><th>RLT-2</th><td>4 tokens</td><td>98.99 ± 1.66%</td><td>19.60 ± 6.54%</td></tr>
+</tbody></table>
+<p class="sub">RLT-2 shares the previous boundary state within each chunk.<br>Known positions in a chunk run in parallel, then its last output updates feedback.</p>
+<p class="small" style="margin-top:14px">Final-answer/state accuracy, mean ± sample SD, seeds 42–44. Same checkpoint protocol as the previous slide.</p>
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/contents/experiments.tex" target="_blank" rel="noopener">RLT / Feedback frequency</a> / <a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/contents/rlt2.tex" target="_blank" rel="noopener">RLT-2 / Chunk semantics</a></p>
+<span class="page-number">12 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>Both models have the same encoder–decoder allocation and parameters.
+RLT-2 changes how often feedback updates.
+Within a chunk, each position receives the same previous boundary feedback vector, while causal attention and KV updates remain part of the model.</p>
+<p>Chunk size four preserves nearly all 64-bit parity accuracy at this split but sharply reduces 64-operation swap tracking.
+Removing feedback entirely gives 50.23 plus or minus 3.80 percent parity accuracy and near-uniform swap tracking at this length.
+The RLT-0 control also removes the merge parameters, making it 787,968 parameters smaller.</p>
+<p>RLT chunking changes the recurrence and therefore the model.
+This differs from an SSD chunk algorithm that reorganizes evaluation of the same affine recurrence.
+Known-token chunks can run in parallel, while autoregressive generation still waits for newly sampled tokens.
+The schedule diagram describes dependencies, not measured speedups.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/contents/experiments.tex" target="_blank" rel="noopener">RLT / Feedback frequency</a> / <a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/contents/rlt2.tex" target="_blank" rel="noopener">RLT-2 / Chunk semantics</a></p>
+</aside>
+</section>
+
+<!-- 13: State size and parallel evaluation -->
+<section class="slide rlt " data-title="State size and parallel evaluation" data-section="12 / Comparing the mechanisms" data-main="true" data-minutes="1">
+<p class="eyebrow">12 / Comparing the mechanisms</p>
+<h2 class="s-title">State size and parallel evaluation</h2>
+<div class="slide-body">
+<table class="prose-table comparison-table">
+<thead><tr><th>Model core</th><th>Update in the previous state</th><th>Persistent memory*</th><th>Known-token evaluation</th></tr></thead>
+<tbody>
+<tr><th>Linear attention</th><td>Additive / affine</td><td>Fixed matrix and normalizer</td><td>Prefix sums or chunked contraction</td></tr>
+<tr><th>Selective SSM</th><td>Input-conditioned affine</td><td>Fixed state</td><td>Structured scan or SSD</td></tr>
+<tr><th>DeltaNet</th><td>Affine rank-one edit</td><td>Fixed matrix</td><td>Structured chunk algorithm</td></tr>
+<tr><th>RLT-1</th><td>Nonlinear decoder cell</td><td>Bounded decoder state,<br>growing encoder memory</td><td>Parallel encoder,<br>sequential decoder</td></tr>
+</tbody></table>
+<p class="small" style="margin-top:18px">*At fixed width, depth, and local window. State sizes refer to inference, excluding training activations.</p>
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Linear attention, SSD, and Delta Networks</a> / <a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">RLT / State and execution</a></p>
+<span class="page-number">13 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>This table compares the recurrent cores, with each layer's inputs held fixed when classifying affine transitions.
+Nonlinear feature projections, gates outside the core, and stacked layers can make the overall models nonlinear.</p>
+<p>The fixed-state claims for linear attention, SSMs, and DeltaNet hold at fixed architectural dimensions.
+Their training activations can still grow with sequence length.
+RLT's decoder state contains a fixed-width vector and at most W minus one cached positions per SWA layer.</p>
+<p>RLT also stores encoder memory over the entire prefix, as well as the encoder caches needed during incremental generation.
+It therefore does not have constant total inference memory.
+The full-prefix attention operations also prevent inferring linear total sequence cost from the bounded decoder state.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Note / Linear attention, SSD, and Delta Networks</a> / <a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">RLT / State and execution</a></p>
+</aside>
+</section>
+
+<!-- 14: The transition determines the computation -->
+<section class="slide rlt final-slide" data-title="The transition determines the computation" data-section="13 / Connection to RLT" data-main="true" data-minutes="1" data-bg="dark">
+<p class="eyebrow">13 / Connection to RLT</p>
+<h2 class="s-title">The transition determines the computation</h2>
+<div class="slide-body">
+<div class="text-columns" style="margin-top:18px">
+<div><h3>Structured recurrent memory</h3><div class="formula plain">\[h_t=A_t h_{t-1}+c_t\]</div><p>Linear attention, SSMs, and DeltaNet compress history through structured affine updates.</p></div>
+<div><h3>Nonlinear recurrent computation</h3><div class="formula plain">\[H_t=\mathcal F_\Theta(H_{t-1};e_t,M_{\le t},t)\]</div><p>RLT reuses a complete decoder cell across tokens and retains explicit context memory.</p></div>
+</div>
+<p class="lead">The state-space view connects the models.<br>The transition’s structure determines what can be composed efficiently.</p>
+<p class="research-question">Open question: can a structured transition retain RLT’s state-tracking gains?</p>
+</div>
+<p class="foot"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Zhang and Kung / Linear Attention and SSMs</a> / <a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">Zhang et al. / RLT</a></p>
+<span class="page-number">14 / 14</span>
+<aside class="speaker-notes" lang="en" hidden>
+<p>The note and RLT meet at the state-transition viewpoint.
+The note explains how structured updates combine compressed memory with efficient parallel evaluation.
+RLT makes the state transition a deep nonlinear computation conditioned on encoder memory.</p>
+<p>The RLT experiments show that both decoder allocation and feedback frequency matter for the tested algorithmic tasks.
+An empirical comparison against structured SSM and DeltaNet cores would test whether those gains require the current nonlinear decoder cell.
+That comparison is a research question, not a result established by the reported experiments.</p>
+<p class="note-source"><a href="https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex" target="_blank" rel="noopener">Zhang and Kung / Linear Attention and SSMs</a> / <a href="https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf/blob/2367dfd6a6c211d2f3d8b9ac0b6133eb611c4b5f/main.tex" target="_blank" rel="noopener">Zhang et al. / RLT</a></p>
+</aside>
+</section>
+</main></div>
+<div class="chrome progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+<nav class="chrome toolbar" aria-label="Presentation controls">
+  <button id="prev" aria-label="Previous slide" title="Previous (←)">‹</button>
+  <span class="count" id="count" aria-live="polite"></span>
+  <button id="next" aria-label="Next slide" title="Next (→)">›</button><span class="sep"></span>
+  <button id="ov" aria-label="Slide overview" title="Overview (O)">⊞</button>
+  <button id="notes" aria-label="Speaker notes" title="Speaker notes (N)">N</button>
+  <button id="fs" aria-label="Fullscreen" title="Fullscreen (F)">⤢</button>
+  <button id="hl" aria-label="Help" title="Help (?)">?</button>
+</nav>
+<dialog class="overview" id="overview" aria-labelledby="overview-title">
+  <h2 id="overview-title">Slide navigator <span>14 slides / Esc to close</span></h2>
+  <button class="overlay-close" id="overview-close" aria-label="Close overview">Close ×</button>
+  <div class="grid" id="grid"></div>
+</dialog>
+<dialog class="help" id="help" aria-labelledby="help-title"><div class="panel">
+  <h3 id="help-title">Keyboard &amp; controls</h3>
+  <dl><dt>→ / Space / Page Down</dt><dd>Next slide</dd><dt>← / Page Up</dt><dd>Previous slide</dd><dt>Home / End</dt><dd>First / last slide</dd><dt>O</dt><dd>Slide overview</dd><dt>N</dt><dd>Speaker notes for the current slide</dd><dt>F</dt><dd>Fullscreen</dd><dt>?</dt><dd>Help</dd><dt>Esc</dt><dd>Close a dialog</dd><dt>Print</dt><dd>One 16:9 slide per page</dd></dl>
+  <button class="dialog-close" id="help-close">Close</button>
+</div></dialog>
+<dialog class="notes-viewer" id="notes-viewer" aria-labelledby="notes-title"><header><h2 id="notes-title">Speaker notes</h2><button id="notes-close">Close ×</button></header><div id="notes-content" lang="en"></div></dialog>
+<dialog class="figure-viewer" id="figure-viewer" aria-labelledby="figure-caption">
+  <header><h2 id="figure-caption">Figure</h2><button id="figure-out" aria-label="Zoom out">−</button><button id="figure-fit">Fit</button><button id="figure-in" aria-label="Zoom in">+</button><a id="figure-source" target="_blank" rel="noopener">Open figure ↗</a><button id="figure-close">Close ×</button></header>
+  <div class="figure-scroll" id="figure-scroll"><img id="figure-image" alt=""></div>
+</dialog>
+<noscript><div class="no-js">Enable JavaScript to navigate and render equations. Editable slide content is in index.html.</div></noscript>
+</body></html>

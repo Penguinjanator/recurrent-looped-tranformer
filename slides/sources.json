@@ -1,0 +1,161 @@
+{
+  "title": "Linear Attention, State Spaces, and RLT",
+  "date": "2026-10-09",
+  "slide_count": 14,
+  "language": "en",
+  "canvas": [
+    1280,
+    720
+  ],
+  "reference": {
+    "repository": "https://github.com/yifanzhang-pro/princeton-general-exam",
+    "commit": "221e5172b582f57c20a0ac4fa4a38ea1b13dd39c",
+    "directory": "slides",
+    "reused": [
+      "slides.css (as reference.css)",
+      "slides.js",
+      "vendor/"
+    ]
+  },
+  "sources": [
+    {
+      "name": "A Note on Linear Attention and State Space Models",
+      "repository": "https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs",
+      "commit": "4f14583b2b6195bc884510e1b484954f28c4e7f8",
+      "path": "main.tex",
+      "sha256": "bd55274bc0494872215ebb8a52af744aad5f9982e14b81ad61f0a87a55cabac9",
+      "sections": [
+        "State-space representations",
+        "Selective SSMs",
+        "Structured State-Space Duality",
+        "Linear attention",
+        "Delta Networks"
+      ]
+    },
+    {
+      "name": "Recurrent Looped Transformer",
+      "repository": "https://github.com/yifanzhang-pro/Recurrent-Looped-Transformer-Overleaf",
+      "version": "Manuscript including the RNN and explicit state-space interpretation",
+      "files": {
+        "main.tex": "1286f4f03875773dea475f7a7f0ec7ec07b629181f66cccca1103666b0fbccb7",
+        "contents/experiments.tex": "cad3f7eb9f7928de7e3b650abd841ad3b2d1ea3d7a820801fa4c1a0c7db06ee7",
+        "contents/rlt2.tex": "09d705d0bcb56d2e59857066ef80c4de0b8e6635e9e3eee95aa0b8607af72455",
+        "contents/variants-20260925/generalization-summary.tex": "baa6db6ce4be54d62069d27e87b845d32e32be08ad48379fa187e0181da8078d"
+      },
+      "authors": [
+        "Yifan Zhang",
+        "Jichen Feng",
+        "Shihan Qin",
+        "Sun-Yuan Kung",
+        "Mengdi Wang"
+      ],
+      "commit": "d6a8ffecf777794c407e906ea376aeafdb08dd9e"
+    }
+  ],
+  "figures": [
+    {
+      "file": "assets/architecture-rlt1.svg",
+      "source": "https://github.com/yifanzhang-pro/princeton-general-exam/blob/221e5172b582f57c20a0ac4fa4a38ea1b13dd39c/slides/assets/architecture-rlt1.svg",
+      "sha256": "81ba6f6ed79eac15bf1611cd14947c15642e86a7416d375c4d3e4b83de01f4f5",
+      "modified": false
+    },
+    {
+      "file": "assets/visual-rlt-parity.svg",
+      "source": "https://github.com/yifanzhang-pro/princeton-general-exam/blob/221e5172b582f57c20a0ac4fa4a38ea1b13dd39c/slides/assets/visual-rlt-parity.svg",
+      "sha256": "c7c44656a85b4b876ec9347f0c9d7df89607de77a041dac38e8ce6513f9d5e12",
+      "modified": false
+    },
+    {
+      "file": "assets/visual-rlt-schedule.svg",
+      "source": "https://github.com/yifanzhang-pro/princeton-general-exam/blob/221e5172b582f57c20a0ac4fa4a38ea1b13dd39c/slides/assets/visual-rlt-schedule.svg",
+      "sha256": "ba5498ac8c95c626160b61f7f40a2d5bb87f87dc0b07da6bfb367ecfafcaf4b1",
+      "modified": false
+    },
+    {
+      "file": "assets/linear-attention-recurrent.svg",
+      "source": "https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex",
+      "description": "Cropped recurrent diagram from Two equivalent views of linear attention",
+      "process": "Original TikZ compiled with Tectonic, converted to SVG; diagram panels cropped through the SVG viewBox.",
+      "sha256": "1b9391da486a683c18f5543c131e0a55661c948b1ba4c39ec26d858d5d989746",
+      "modified": "crop"
+    },
+    {
+      "file": "assets/linear-attention-parallel.svg",
+      "source": "https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex",
+      "description": "Cropped parallel diagram from Two equivalent views of linear attention",
+      "process": "Original TikZ compiled with Tectonic, converted to SVG; diagram panels cropped through the SVG viewBox.",
+      "sha256": "b1cdf62f98b1acb9bff48224bc309eb7a5976f99afbe4d1243f2a7c9cc3848b7",
+      "modified": "crop"
+    },
+    {
+      "file": "assets/delta-recurrent.svg",
+      "source": "https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex",
+      "description": "Cropped recurrent diagram from Two equivalent views of the Delta Network",
+      "process": "Original TikZ compiled with Tectonic, converted to SVG; diagram panels cropped through the SVG viewBox.",
+      "sha256": "85d7285917336fb2bebd22ea9e154f78c6d442a12829ef27b713a60fea6f4f42",
+      "modified": "crop"
+    },
+    {
+      "file": "assets/note-linear-attention-duality.svg",
+      "source": "https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex",
+      "description": "Full original linear-attention figure for web enlargement",
+      "process": "Original TikZ compiled with Tectonic, converted to SVG; diagram panels cropped through the SVG viewBox.",
+      "sha256": "c101afd2e096732a798e0b971d9f57bc4368c501743684d15976a2d5bfd2300b",
+      "modified": false
+    },
+    {
+      "file": "assets/mamba-selection.svg",
+      "source": "https://arxiv.org/html/2312.00752v2/selection.svg",
+      "description": "Gu and Dao, Mamba, Figure 1",
+      "sha256": "f7dc33b740a0a0b9925dd8a005c26c26f19629f82b6a5e4e122f9385b84a0c39",
+      "modified": false
+    },
+    {
+      "file": "assets/linear-attention-recurrent.png",
+      "source": "https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex",
+      "description": "Cropped recurrent diagram from Two equivalent views of linear attention",
+      "process": "3x PNG rendering of the cropped original SVG, for consistent gradient shadows in PDF and PowerPoint; web enlargement retains the SVG.",
+      "sha256": "2b17ba222a222e08a699243c1e6e0b99a924bc2b77c1f62366cc4d54af56b9ba",
+      "modified": "crop"
+    },
+    {
+      "file": "assets/linear-attention-parallel.png",
+      "source": "https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex",
+      "description": "Cropped parallel diagram from Two equivalent views of linear attention",
+      "process": "3x PNG rendering of the cropped original SVG, for consistent gradient shadows in PDF and PowerPoint; web enlargement retains the SVG.",
+      "sha256": "9d84c21fc8959165bdb62be9fae43c0ba18d20e9baf71d3027f561a61395579b",
+      "modified": "crop"
+    },
+    {
+      "file": "assets/delta-recurrent.png",
+      "source": "https://github.com/yifanzhang-pro/A-Note-on-Linear-Attention-and-SSMs/blob/4f14583b2b6195bc884510e1b484954f28c4e7f8/main.tex",
+      "description": "Cropped recurrent diagram from Two equivalent views of the Delta Network",
+      "process": "3x PNG rendering of the cropped original SVG, for consistent gradient shadows in PDF and PowerPoint; web enlargement retains the SVG.",
+      "sha256": "dee9c3e8dfc2f344ff860eb97b3fa17610840be9825e39f6118a64b071131c34",
+      "modified": "crop"
+    }
+  ],
+  "background_references": [
+    {
+      "name": "Transformers are RNNs",
+      "url": "https://proceedings.mlr.press/v119/katharopoulos20a.html"
+    },
+    {
+      "name": "Mamba",
+      "url": "https://arxiv.org/abs/2312.00752"
+    },
+    {
+      "name": "Structured State Space Duality",
+      "url": "https://arxiv.org/abs/2405.21060"
+    },
+    {
+      "name": "Parallelizing Linear Transformers with the Delta Rule over Sequence Length",
+      "url": "https://arxiv.org/abs/2406.06484"
+    }
+  ],
+  "exports": {
+    "pdf": "slides/linear-attention-ssm-rlt.pdf",
+    "powerpoint": "slides/linear-attention-ssm-rlt.pptx",
+    "powerpoint_content": "Editable text and native tables, vector equations, embedded Inter/Space Grotesk/JetBrains Mono fonts; original TikZ crops displayed through high-resolution images for consistent shadow rendering."
+  }
+}

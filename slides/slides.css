@@ -1,0 +1,83 @@
+/* Typography, canvas and navigation follow the supplied general-exam deck. */
+@import url('reference.css');
+
+.slide.rlt { justify-content: flex-start; }
+.slide.rlt.center { justify-content: center; }
+.rlt .slide-body { margin-top: 20px; }
+.rlt .s-title { font-size: 46px; }
+.rlt .foot { font-family: Inter, sans-serif; font-size: 14px; padding-right: 55px; }
+.rlt .foot a { border-bottom: 1px solid #bbb; }
+.page-number { position: absolute; bottom: 27px; right: 78px; font: 14px 'JetBrains Mono', monospace; color: var(--ink-3); }
+.rlt .formula { border-radius: 0; border-left: 0; border-right: 0; font-size: 27px; padding: 12px 18px; margin-top: 12px; }
+.rlt .formula.plain { border: 0; background: none; padding: 6px 0; }
+.rlt mjx-container[display="true"] { margin: .2em 0!important; }
+.rlt .sub { font-size: 23px; margin-top: 12px; }
+.rlt .small { font-size: 20px; line-height: 1.45; color: var(--ink-3); }
+.rlt .lead { font-size: 28px; }
+.rlt .definition { font-size: 23px; color: var(--ink-2); line-height: 1.5; }
+.rlt .text-columns { gap: 44px; margin-top: 20px; }
+.rlt .text-columns p { font-size: 24px; line-height: 1.45; }
+.rlt .text-columns h3 { font-size: 26px; }
+.rlt .research-question { font-size: 29px; margin-top: 18px; padding-top: 16px; }
+.rlt .prose-table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+.rlt .prose-table th:first-child { width: 26%; }
+.rlt .prose-table td, .rlt .prose-table tbody th { font-size: 23px; line-height: 1.4; padding: 12px 14px; }
+.rlt .prose-table thead th { font-size: 17px; font-weight: 500; padding: 12px 14px; }
+.rlt .notation-table th:first-child { width: 18%; }
+.rlt .notation-table td, .rlt .notation-table tbody th { padding-top: 10px; padding-bottom: 10px; }
+.rlt .comparison-table th:first-child { width: 22%; }
+.rlt .comparison-table td, .rlt .comparison-table tbody th { font-size: 22px; padding: 12px; }
+.rlt .results-table td, .rlt .results-table tbody th { padding: 16px 12px; font-size: 24px; }
+.rlt .results-table td:last-child { font-weight: 600; }
+.rlt .credits { font-size: 19px; line-height: 1.6; margin-top: 20px; color: var(--ink-3); }
+.rlt .equation-label { font: 500 19px 'Inter', sans-serif; color: var(--ink-3); margin: 14px 0 8px; }
+.rlt .math-large { font-size: 32px; }
+.rlt .math-compact { font-size: 25px; }
+.rlt .equation-stack .formula { margin-top: 14px; }
+.rlt .equation-stack .formula:first-child { margin-top: 0; }
+.rlt .example { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 23px; line-height: 1.55; }
+.rlt .architecture-layout { display: grid; grid-template-columns: 590px 1fr; gap: 38px; margin-top: 0; }
+.rlt .architecture-layout img { height: 454px; }
+.rlt .architecture-copy h3 { font: 600 26px 'Space Grotesk', sans-serif; margin-top: 20px; }
+.rlt .architecture-copy h3:first-child { margin-top: 0; }
+.rlt .architecture-copy p { font-size: 23px; line-height: 1.45; margin-top: 10px; }
+.rlt .parity-figure img { height: 185px; }
+.rlt .schedule-figure img { height: 154px; }
+.rlt .schedule-table { margin-top: 12px; }
+.rlt .schedule-table td, .rlt .schedule-table tbody th { padding: 12px; }
+.rlt .title-display { font-size: 84px; line-height: 1.06; }
+.rlt.title-slide .slide-body { margin-top: 0; }
+.rlt.title-slide .byline { margin-top: 40px; }
+.rlt.title-slide .start-hint { margin-top: 34px; }
+.rlt[data-bg="dark"] .page-number { color: var(--d-ink-3); }
+.rlt[data-bg="dark"] .text-columns p { color: var(--d-ink-2); }
+.rlt[data-bg="dark"] .text-columns h3 { color: var(--d-ink); }
+.rlt[data-bg="dark"] .research-question { border-color: var(--d-line); color: white; }
+.rlt[data-bg="dark"] .foot { color: var(--d-ink-3); }
+.rlt.final-slide .text-columns { margin-top: 36px; }
+.rlt.final-slide .formula { font-size: 28px; }
+.rlt.final-slide .lead { margin-top: 38px; }
+.rlt .title-credit { margin-top: 24px; color: var(--d-ink-3); font-size: 17px; }
+@media print {
+  .start-hint { visibility: hidden; }
+  /* A flat dark background avoids PDF transparency seams beneath text. */
+  .slide[data-bg="dark"]::before,
+  .slide[data-bg="dark"]::after { display: none; }
+}
+
+/* Original source diagrams lead the linear-attention, SSM, and DeltaNet slides. */
+.rlt .memory-figure { margin-top: 0; }
+.rlt .memory-figure img { height: 230px; }
+.rlt .attention-figure { margin-top: 10px; }
+.rlt .attention-figure img { height: 198px; }
+.rlt .compact-definition { font-size: 21px; margin-top: 12px; }
+.rlt .ssm-layout { display: grid; grid-template-columns: 650px 1fr; gap: 28px; align-items: center; }
+.rlt .ssm-figure { margin-top: 0; }
+.rlt .ssm-figure img { height: 244px; }
+.rlt .ssm-copy .formula { font-size: 24px; margin: 0; padding: 4px 0; }
+.rlt .ssm-copy .sub { font-size: 21px; }
+.rlt .ssm-layout + .equation-label { margin-top: 14px; }
+
+.rlt .ssd-equation { font-size: 25px; }
+.rlt:has(.attention-figure) .formula.plain { font-size: 24px; }
+.rlt:has(.attention-figure) .small { margin-top: 3px; }

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="210" viewBox="0 0 1120 210" role="img" aria-labelledby="title desc">
+<title id="title">Sequential stages under three feedback schedules</title>
+<desc id="desc">Editable presentation diagram. Interpretive schematics are not measured timings. Numerical charts use the values cited on the slide.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8" fill="#64717c"/></marker></defs>
+<rect width="100%" height="100%" fill="white"/>
+<g font-family="Inter,Arial,PingFang SC,Microsoft YaHei,sans-serif" fill="#17212b">
+<text x="8" y="51" font-size="23" fill="#17212b" text-anchor="start" font-weight="600">RLT-1</text>
+<rect x="290" y="25" width="44" height="38" rx="3" fill="#2e6598" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="312" y="51" font-size="20" fill="white" text-anchor="middle" font-weight="400">1</text>
+<line x1="337" y1="44" x2="352" y2="44" stroke="#64717c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="354" y="25" width="44" height="38" rx="3" fill="#2e6598" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="376" y="51" font-size="20" fill="white" text-anchor="middle" font-weight="400">2</text>
+<line x1="401" y1="44" x2="416" y2="44" stroke="#64717c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="418" y="25" width="44" height="38" rx="3" fill="#2e6598" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="440" y="51" font-size="20" fill="white" text-anchor="middle" font-weight="400">3</text>
+<line x1="465" y1="44" x2="480" y2="44" stroke="#64717c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="482" y="25" width="44" height="38" rx="3" fill="#2e6598" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="504" y="51" font-size="20" fill="white" text-anchor="middle" font-weight="400">4</text>
+<line x1="529" y1="44" x2="544" y2="44" stroke="#64717c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="546" y="25" width="44" height="38" rx="3" fill="#2e6598" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="568" y="51" font-size="20" fill="white" text-anchor="middle" font-weight="400">5</text>
+<line x1="593" y1="44" x2="608" y2="44" stroke="#64717c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="610" y="25" width="44" height="38" rx="3" fill="#2e6598" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="632" y="51" font-size="20" fill="white" text-anchor="middle" font-weight="400">6</text>
+<line x1="657" y1="44" x2="672" y2="44" stroke="#64717c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="674" y="25" width="44" height="38" rx="3" fill="#2e6598" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="696" y="51" font-size="20" fill="white" text-anchor="middle" font-weight="400">7</text>
+<line x1="721" y1="44" x2="736" y2="44" stroke="#64717c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="738" y="25" width="44" height="38" rx="3" fill="#2e6598" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="760" y="51" font-size="20" fill="white" text-anchor="middle" font-weight="400">8</text>
+<text x="880" y="51" font-size="24" fill="#17212b" text-anchor="start" font-weight="600">8 Lᴅ</text>
+<text x="8" y="112" font-size="23" fill="#17212b" text-anchor="start" font-weight="600">RLT-2 · B = 4</text>
+<rect x="290" y="86" width="44" height="38" rx="3" fill="#277b70" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="312" y="112" font-size="20" fill="white" text-anchor="middle" font-weight="400">1</text>
+<rect x="354" y="86" width="44" height="38" rx="3" fill="#277b70" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="376" y="112" font-size="20" fill="white" text-anchor="middle" font-weight="400">2</text>
+<rect x="418" y="86" width="44" height="38" rx="3" fill="#277b70" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="440" y="112" font-size="20" fill="white" text-anchor="middle" font-weight="400">3</text>
+<rect x="482" y="86" width="44" height="38" rx="3" fill="#277b70" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="504" y="112" font-size="20" fill="white" text-anchor="middle" font-weight="400">4</text>
+<line x1="529" y1="105" x2="544" y2="105" stroke="#64717c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="546" y="86" width="44" height="38" rx="3" fill="#277b70" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="568" y="112" font-size="20" fill="white" text-anchor="middle" font-weight="400">5</text>
+<rect x="610" y="86" width="44" height="38" rx="3" fill="#277b70" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="632" y="112" font-size="20" fill="white" text-anchor="middle" font-weight="400">6</text>
+<rect x="674" y="86" width="44" height="38" rx="3" fill="#277b70" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="696" y="112" font-size="20" fill="white" text-anchor="middle" font-weight="400">7</text>
+<rect x="738" y="86" width="44" height="38" rx="3" fill="#277b70" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="760" y="112" font-size="20" fill="white" text-anchor="middle" font-weight="400">8</text>
+<path d="M290 130 H525" fill="none" stroke="#277b70" stroke-width="3"/>
+<path d="M546 130 H781" fill="none" stroke="#277b70" stroke-width="3"/>
+<text x="880" y="112" font-size="24" fill="#17212b" text-anchor="start" font-weight="600">2 Lᴅ</text>
+<text x="8" y="173" font-size="23" fill="#17212b" text-anchor="start" font-weight="600">RLT-0</text>
+<rect x="290" y="147" width="44" height="38" rx="3" fill="#64717c" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="312" y="173" font-size="20" fill="white" text-anchor="middle" font-weight="400">1</text>
+<rect x="354" y="147" width="44" height="38" rx="3" fill="#64717c" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="376" y="173" font-size="20" fill="white" text-anchor="middle" font-weight="400">2</text>
+<rect x="418" y="147" width="44" height="38" rx="3" fill="#64717c" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="440" y="173" font-size="20" fill="white" text-anchor="middle" font-weight="400">3</text>
+<rect x="482" y="147" width="44" height="38" rx="3" fill="#64717c" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="504" y="173" font-size="20" fill="white" text-anchor="middle" font-weight="400">4</text>
+<rect x="546" y="147" width="44" height="38" rx="3" fill="#64717c" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="568" y="173" font-size="20" fill="white" text-anchor="middle" font-weight="400">5</text>
+<rect x="610" y="147" width="44" height="38" rx="3" fill="#64717c" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="632" y="173" font-size="20" fill="white" text-anchor="middle" font-weight="400">6</text>
+<rect x="674" y="147" width="44" height="38" rx="3" fill="#64717c" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="696" y="173" font-size="20" fill="white" text-anchor="middle" font-weight="400">7</text>
+<rect x="738" y="147" width="44" height="38" rx="3" fill="#64717c" stroke="#d5dde3" stroke-width="1.5"/>
+<text x="760" y="173" font-size="20" fill="white" text-anchor="middle" font-weight="400">8</text>
+<text x="880" y="173" font-size="24" fill="#17212b" text-anchor="start" font-weight="600">Lᴅ</text>
+<text x="1098" y="204" font-size="18" fill="#64717c" text-anchor="end" font-weight="400">T = 8 known tokens; schematic</text>
+</g></svg>
